@@ -13,7 +13,7 @@
 
     'depends': [
     'mail','stock','hr','sale_management','purchase','account_invoicing',
-    'odoope_ruc_validation','odoope_toponyms'
+    'odoope_ruc_validation','odoope_toponyms','facturacion_elec_hc'
     ],
 
 }
