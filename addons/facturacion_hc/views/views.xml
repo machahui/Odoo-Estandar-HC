@@ -1,0 +1,56 @@
+<odoo>
+
+    <record id="factelec_serie_form" model="ir.ui.view">
+        <field name="name">factelec.serie.form</field>
+        <field name="model">factelec.serie</field>
+        <field name="arch" type="xml">
+             <form string="Serie de facturacion">
+                <group>
+                    <field name="name"/>
+                    <field name="type_document_id"/>
+                    <field name="sequence_id"/>
+                    <field name="sequence_number_next"/>
+                    <field name="description"/>
+                    <field name="is_factelec"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="factelec_account_invoice_inherit" model="ir.ui.view">
+        <field name="name">factelec.account.invoice.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name = "type_document_id" />
+                <field name = "serie_id" />
+                <field name = "numero" attrs="{'readonly': True}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="factelec_account_invoice_supplier_inherit" model="ir.ui.view">
+        <field name="name">factelec.account.invoice.supplier.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="date_due" position="after">
+                <field name = "type_document_id" />
+                <field name = "serie_id" />
+                <field name = "numero" attrs="{'readonly': True}" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_tax_form">
+        <field name="name">account.tax.form</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="ebill_tax_type"/>
+            </field>
+        </field>
+    </record>
+</odoo>

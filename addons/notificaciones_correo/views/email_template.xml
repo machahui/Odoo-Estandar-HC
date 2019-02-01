@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="nopaid_invoice_email_template" model="mail.template">
+    <field name="name">Facturas por cobrar template</field>
+    <field name="email_from">${object.email_user }</field>
+    <field name="subject">Facturas por cobrar</field>
+    <field name="email_to">${object.nopaid_user_id.email}</field>
+    <field name="model_id" ref="notificaciones_correo.model_res_config_settings"/>
+    <field name="auto_delete" eval="True"/>
+	  <field name="body_html">
+      <![CDATA[
+        <p>Estimado usuario de DYSCHEM</p>
+        <p>Esta es la lista de facturas que no han sido pagadas y van a expirar en ${object.days_nopaid} dias o menos.</p>
+	      <br/>
+        <table style="border: 2px solid black;">
+          <tr style="background-color: #F1A800; border: 1px solid black;">
+            <th>Ref.</th>
+            <th>Socio</th>
+            <th>Saldo</th>
+            <th>Total</th>
+            <th>Fecha vencimiento</th>
+          </tr>
+          %for invoice in object.nopaid_invoices_ids:
+          <tr>
+            <td>${invoice.fact_number}</td>
+            <td>${invoice.partner_name}</td>
+            <td>${invoice.residual}</td>
+            <td>${invoice.amount_total}</td>
+            <td>${invoice.date_due}</td>
+          </tr>
+          %endfor
+        </table>
+	    ]]>
+    </field>
+  </record>
+  
+  <record id="nogiveback_tool_email_template" model="mail.template">
+    <field name="name">Herramientas por entregar template</field>
+    <field name="email_from">${object.email_user }</field>
+    <field name="subject">Herramientas faltantes</field>
+    <field name="email_to">${object.nogiveback_user_id.email}</field>
+    <field name="model_id" ref="notificaciones_correo.model_res_config_settings"/>
+    <field name="auto_delete" eval="True"/>
+	  <field name="body_html">
+      <![CDATA[
+        <p>Estimado usuario de DYSCHEM</p>
+        <p>Esta es la lista de herramientas que no han sido entregadas en el plazo de ${object.days_nogiveback} dias hacia más.</p>
+	      <br/>
+        <table style="border: 2px solid black;">
+          <tr style="background-color: #F1A800; border: 1px solid black;">
+            <th>Ref.</th>
+            <th>Responsable</th>
+            <th>Herramienta</th>
+            <th>Dia de entrega</th>
+          </tr>
+          %for datos in object.nogiveback_tools_ids:
+            <tr>
+              <td>${datos.referencia}</td>
+              <td>${datos.responsable_name}</td>
+              <td>${datos.tools}</td>
+              <td>${datos.date_finish}</td>
+            </tr>
+          %endfor
+        </table>
+	    ]]>
+    </field>
+  </record> 
+</odoo>

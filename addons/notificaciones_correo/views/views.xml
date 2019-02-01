@@ -1,0 +1,77 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_nopidinvoices_config_settings_inherit_notification" model="ir.ui.view">
+			<field name="name">nopaid.invoices.config.settings</field>
+			<field name="model">res.config.settings</field>
+			<field name="inherit_id" ref="account.res_config_settings_view_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='has_accounting_entries']" position="before">
+					<h2>Notificacion de Facturas no pagadas</h2>
+					<div class="row mt16 o_settings_container">
+						<div class="col-xs-12 col-md-6 o_setting_box">							
+							<div class="o_setting_right_pane">
+								<label for='nopaid_user_id' string="Usuarios"/>
+								<div class="text-muted">
+								Usuario de notificación por correo electrónico
+								</div>
+							</div>
+							<div class="o_setting_right_pane">
+								<field name='email_user' invisible ='1'/>
+								<field name='nopaid_invoices_ids' invisible ='1' />
+								<field name="nopaid_user_id"/><br/>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-6 o_setting_box" >
+							<div class="o_setting_right_pane">
+								<label for='days_nopaid' string="Días de anticipo"/>
+								<div class="text-muted">
+								Avisar antes de la cantidad de dias antes de la fecha de vencimiento
+								</div>
+							</div>
+							<div class="o_setting_right_pane">
+								<field name="days_nopaid" /> dias
+							</div>
+						</div>
+					</div>
+				</xpath>
+			</field>
+		</record>
+		<record id="view_nogiveback_config_settings_inherit_notification" model="ir.ui.view">
+			<field name="name">stock.config.settings.nogiveback</field>
+			<field name="model">res.config.settings</field>
+			<field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//h2[@id='schedule_info']" position="before">
+					<h2>Notificacion de Herramientas no entregadas</h2>
+					<div class="row mt16 o_settings_container">
+						<div class="col-xs-12 col-md-6 o_setting_box">							
+							<div class="o_setting_right_pane">
+								<label for='nogiveback_user_id' string="Usuarios"/>
+								<div class="text-muted">
+								Usuario de notificación por correo electrónico
+								</div>
+							</div>
+							<div class="o_setting_right_pane">
+								<field name='email_user' invisible ='1'/>
+								<field name='nogiveback_tools_ids' invisible ='1' />
+								<field name="nogiveback_user_id"/><br/>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-6 o_setting_box" >
+							<div class="o_setting_right_pane">
+								<label for='days_nogiveback' string="Días de sobrepaso"/>
+								<div class="text-muted">
+								Avisar despues de cantidad de dias sobre la fecha de entrega
+								</div>
+							</div>
+							<div class="o_setting_right_pane">
+								<field name="days_nogiveback" /> dias
+							</div>
+						</div>
+					</div>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

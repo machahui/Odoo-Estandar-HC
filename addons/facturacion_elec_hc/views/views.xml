@@ -1,0 +1,78 @@
+<odoo>
+    <record id="factelec_account_invoice_inherit" model="ir.ui.view">
+        <field name="name">factelec.account.invoice.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="numero" position="after">
+                <field name = "sunat_transaction_type" />
+                <field name = "tipo_nota_credito" attrs="{'invisible': [('type','!=','out_refund')]}"/>
+            </field>
+            <xpath expr="//page[2]" position="after">
+                <page string="Facturacion electronica" attrs="{'invisible': [('aceptada_por_sunat','!=',True)]}">
+                    <field name = "aceptada_por_sunat" invisible="1"/>
+                    <field name = "sunat_description" widget="text" />
+                    <field name = "enlace_del_pdf" widget="url"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="factelec_account_invoice_supplier_inherit" model="ir.ui.view">
+        <field name="name">factelec.account.invoice.supplier.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="numero" position="after">
+                <field name = "sunat_transaction_type" />
+                <field name = "tipo_nota_credito" attrs="{'invisible': [('type','!=','in_refund')]}"/>
+            </field>
+            <xpath expr="//page[2]" position="after">
+                <page string="Facturacion electronica" attrs="{'invisible': [('aceptada_por_sunat','!=',True)]}">
+                    <field name = "aceptada_por_sunat" invisible="1"/>
+                    <field name = "sunat_description" widget="text" />
+                    <field name = "enlace_del_pdf" widget="url"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="credentials_nubefact_form" model="ir.ui.view">
+        <field name="name">credentials.nubefact.form</field>
+        <field name="model">credentials.nubefact</field>
+        <field name="arch" type="xml">
+            <form string="Nubefact">
+                <group>
+                    <field name="serial_id"/>
+                    <field name="url_nubefact"/>
+                    <field name="token_nubefact"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="credentials_nubefact_tree" model="ir.ui.view">
+        <field name="name">credentials.nubefact.tree</field>
+        <field name="model">credentials.nubefact</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" >
+                <field name="serial_id"/>
+                <field name="url_nubefact"/>
+                <field name="token_nubefact"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_facturacion_electronica" model="ir.actions.act_window">
+        <field name="name">Parametros de configuracion</field>
+        <field name="res_model">credentials.nubefact</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_pos_ms_settings"
+        name="Cofiguración F.E."
+        parent="account.menu_finance_receivables"
+        sequence="1"
+        action="action_facturacion_electronica" />
+</odoo>
